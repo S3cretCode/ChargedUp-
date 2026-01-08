@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChargedUP: Behind The Scenes of an RC Car</title>
+  <meta name="description"
+    content="An interactive educational platform exploring how batteries power motors in RC cars. Learn battery chemistry, magnetic fields, and DC motor operation.">
+  <meta name="keywords"
+    content="RC car, battery, motor, chemistry, physics, electrochemistry, magnetic field, education">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="header" role="banner">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo" aria-label="ChargedUP Home">
+        <img src="assets/logo.svg" alt="" width="40" height="40">
+        <span>ChargedUP</span>
+      </a>
+
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+
+        <ul class="nav__list">
+          <li><a href="index.html" class="nav__link nav__link--active">Home</a></li>
+          <li><a href="chemistry.html" class="nav__link">Chemistry</a></li>
+          <li><a href="physics.html" class="nav__link">Physics</a></li>
+          <li><a href="integrated.html" class="nav__link">Integrated</a></li>
+          <li><a href="simulations.html" class="nav__link">Simulations</a></li>
+          <li><a href="glossary.html" class="nav__link">Glossary</a></li>
+          <li><a href="sources.html" class="nav__link">Sources</a></li>
+          <li><a href="about.html" class="nav__link">About</a></li>
+        </ul>
+
+        <div class="mode-toggle" role="group" aria-label="Mode selection">
+          <button class="mode-toggle__btn mode-toggle__btn--active" data-mode="chemistry" aria-pressed="true">
+            🔋 Battery
+          </button>
+          <button class="mode-toggle__btn" data-mode="physics" aria-pressed="false">
+            ⚡ Motor
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="page-wrapper">
+    <!-- Hero Section -->
+    <section class="hero">
+      <canvas id="hero-canvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__content container">
+        <h1>ChargedUP</h1>
+        <p class="hero__subtitle">Behind The Scenes of an RC Car</p>
+        <p class="hero__description">
+          An interactive exploration connecting <strong>battery chemistry</strong> and <strong>DC motors</strong>.
+          Discover how chemical reactions produce the electrons that power your RC car!
+        </p>
+
+        <div class="hero__cta flex flex--center gap-lg flex--wrap">
+          <a href="chemistry.html" class="btn btn--primary btn--lg">
+            🔋 Explore Battery Chemistry
+          </a>
+          <a href="physics.html" class="btn btn--secondary btn--lg">
+            ⚡ Explore Motor Physics
+          </a>
+        </div>
+
+        <div class="hero__links text-center mt-xl">
+          <a href="integrated.html" class="btn btn--ghost">
+            🔄 See the Complete Energy Chain
+          </a>
+        </div>
+
+        <div class="hero__quick-links mt-lg text-center">
+          <a href="glossary.html">📖 Glossary</a> •
+          <a href="sources.html">📚 Sources</a> •
+          <a href="about.html">👨‍🏫 Teacher Summary</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning Objectives -->
+    <section class="section">
+      <div class="container content-container">
+        <h2 class="text-center mb-xl">🎯 What You'll Learn</h2>
+
+        <div class="grid grid--2 mb-xl">
+          <div class="card feature-card">
+            <div class="feature-card__icon">🔋</div>
+            <h3>Battery Chemistry</h3>
+            <p>Understand how AA alkaline batteries work through electrochemistry:</p>
+            <ul class="text-left">
+              <li>Oxidation-reduction (redox) reactions</li>
+              <li>Stoichiometry and limiting reagents</li>
+              <li>Charge, energy, and capacity calculations</li>
+              <li>Internal resistance and voltage sag</li>
+            </ul>
+          </div>
+
+          <div class="card feature-card">
+            <div class="feature-card__icon">⚡</div>
+            <h3>Motor Physics</h3>
+            <p>Explore how electric current powers DC motors:</p>
+            <ul class="text-left">
+              <li>Magnetic fields from electric currents</li>
+              <li>The right-hand rule</li>
+              <li>Solenoids and coils</li>
+              <li>How motors convert electrical to mechanical energy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section section--alt">
+      <div class="container">
+        <h2 class="text-center mb-xl">⚙️ How ChargedUP Works</h2>
+
+        <div class="grid grid--4">
+          <div class="card text-center">
+            <h4 class="text-cyan">1. Chemistry</h4>
+            <p class="mb-0">Calculate battery capacity, charge (Q), and energy from stoichiometry or commercial specs.
+            </p>
+          </div>
+
+          <div class="card text-center">
+            <h4 class="text-teal">2. Transfer</h4>
+            <p class="mb-0">Pass your battery data directly to the motor simulator with one click.</p>
+          </div>
+
+          <div class="card text-center">
+            <h4 class="text-cyan">3. Physics</h4>
+            <p class="mb-0">Visualize magnetic fields and estimate motor speed based on supply current.</p>
+          </div>
+
+          <div class="card text-center">
+            <h4 class="text-teal">4. Explore</h4>
+            <p class="mb-0">Run virtual labs, adjust parameters, and see the complete energy conversion chain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section class="section">
+      <div class="container content-container">
+        <h2 class="text-center mb-xl">🚀 Quick Start Guide</h2>
+
+        <div class="card mb-lg">
+          <h3>Option 1: Follow the Energy</h3>
+          <ol>
+            <li><a href="chemistry.html">Start with Battery Chemistry</a> — calculate how much energy is in your AA
+              battery pack</li>
+            <li>Click "Use in Motor Simulator" to transfer your results</li>
+            <li>See how the battery powers the motor on the <a href="physics.html">Physics page</a></li>
+            <li>View the complete chain on the <a href="integrated.html">Integrated page</a></li>
+          </ol>
+        </div>
+
+        <div class="card mb-lg">
+          <h3>Option 2: Explore Freely</h3>
+          <p>Jump to any section that interests you:</p>
+          <ul>
+            <li><a href="simulations.html">Virtual Labs</a> — hands-on experimentation</li>
+            <li><a href="glossary.html">Glossary</a> — look up any term</li>
+            <li><a href="sources.html">Sources</a> — see the research behind the calculations</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curriculum Alignment -->
+    <section class="section section--alt">
+      <div class="container content-container">
+        <h2 class="text-center mb-xl">📚 Manitoba Curriculum Alignment</h2>
+
+        <div class="grid grid--2">
+          <div class="card">
+            <h4>Chemistry 30S</h4>
+            <ul>
+              <li>Mole concept and calculations</li>
+              <li>Chemical equations and stoichiometry</li>
+              <li>Oxidation-reduction reactions</li>
+              <li>Electrochemical cells</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4>Physics 30S</h4>
+            <ul>
+              <li>Electric circuits and current</li>
+              <li>Magnetism and electromagnetism</li>
+              <li>Magnetic fields from currents</li>
+              <li>Electromagnetic applications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <p>ChargedUP: Behind The Scenes of an RC Car</p>
+        <p class="text-muted">Grade 11 Chemistry + Physics Final Project • December 20th</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts/main.js"></script>
+</body>
+
+</html>

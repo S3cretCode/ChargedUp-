@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Labs | ChargedUP</title>
+    <meta name="description"
+        content="Interactive virtual labs for exploring battery chemistry and motor physics concepts.">
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <img src="assets/logo.svg" alt="" width="40" height="40">
+                <span>ChargedUP</span>
+            </a>
+            <nav class="nav">
+                <button class="nav-toggle" aria-label="Toggle menu"><span class="nav-toggle__bar"></span><span
+                        class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span></button>
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Home</a></li>
+                    <li><a href="chemistry.html" class="nav__link">Chemistry</a></li>
+                    <li><a href="physics.html" class="nav__link">Physics</a></li>
+                    <li><a href="integrated.html" class="nav__link">Integrated</a></li>
+                    <li><a href="simulations.html" class="nav__link nav__link--active">Simulations</a></li>
+                    <li><a href="glossary.html" class="nav__link">Glossary</a></li>
+                    <li><a href="sources.html" class="nav__link">Sources</a></li>
+                    <li><a href="about.html" class="nav__link">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="page-wrapper">
+        <div class="container">
+            <section class="section">
+                <h1>🧪 Virtual Labs & Simulations</h1>
+                <p class="text-lg">Hands-on exploration of battery and motor concepts</p>
+            </section>
+
+            <!-- Lab 1: Battery Discharge -->
+            <section class="section">
+                <h2>Lab 1: Battery Discharge & Internal Resistance</h2>
+
+                <div class="card">
+                    <div class="grid grid--2">
+                        <div>
+                            <h3>Objectives</h3>
+                            <ul>
+                                <li>Observe how internal resistance affects loaded voltage</li>
+                                <li>See how current draw impacts runtime</li>
+                                <li>Compare alkaline vs NiMH behavior</li>
+                            </ul>
+
+                            <h4 class="mt-lg">Instructions</h4>
+                            <ol>
+                                <li>Use the sliders to adjust current draw</li>
+                                <li>Observe voltage drop under load</li>
+                                <li>Note how runtime changes with current</li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h4>Battery Pack Visualization</h4>
+                            <div class="battery-pack"
+                                style="background: var(--color-bg-tertiary); border-radius: 12px; padding: 2rem;">
+                                <div class="battery-cell">
+                                    <div class="battery-cell__terminal"></div>
+                                    <div class="battery-cell__level" style="height: 80%;"></div>
+                                    <span class="battery-cell__label">AA</span>
+                                </div>
+                                <div class="battery-cell">
+                                    <div class="battery-cell__terminal"></div>
+                                    <div class="battery-cell__level" style="height: 80%;"></div>
+                                    <span class="battery-cell__label">AA</span>
+                                </div>
+                                <div class="battery-cell">
+                                    <div class="battery-cell__terminal"></div>
+                                    <div class="battery-cell__level" style="height: 80%;"></div>
+                                    <span class="battery-cell__label">AA</span>
+                                </div>
+                                <div class="battery-cell">
+                                    <div class="battery-cell__terminal"></div>
+                                    <div class="battery-cell__level" style="height: 80%;"></div>
+                                    <span class="battery-cell__label">AA</span>
+                                </div>
+                            </div>
+                            <p class="text-center text-muted text-sm mt-md">4×AA Battery Pack (6V nominal)</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-lg">
+                        <h4>Experiment: Voltage Sag Under Load</h4>
+                        <div class="input-grid">
+                            <div class="form-group">
+                                <label class="form-label">Current Draw (A)</label>
+                                <input type="range" class="range-slider" min="0.1" max="3" step="0.1" value="0.5"
+                                    id="lab1-current">
+                                <span id="lab1-current-display">0.5 A</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Internal Resistance (Ω)</label>
+                                <input type="range" class="range-slider" min="0.2" max="2" step="0.1" value="1.2"
+                                    id="lab1-resistance">
+                                <span id="lab1-resistance-display">1.2 Ω</span>
+                            </div>
+                        </div>
+
+                        <div class="results-panel mt-md">
+                            <div class="grid grid--3">
+                                <div class="result-item">
+                                    <span>Open-Circuit Voltage:</span>
+                                    <strong>6.0 V</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Loaded Voltage:</span>
+                                    <strong id="lab1-loaded-v">5.4 V</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Power Lost to Heat:</span>
+                                    <strong id="lab1-power-loss">0.3 W</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-lg">
+                        <h4>Learning Outcomes</h4>
+                        <ul>
+                            <li>Higher current = more voltage drop (V = IR)</li>
+                            <li>Internal resistance causes energy loss as heat</li>
+                            <li>Fresh batteries have lower internal resistance</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lab 2: Motor Current & B-Field -->
+            <section class="section">
+                <h2>Lab 2: Motor Current & Magnetic Field</h2>
+
+                <div class="card">
+                    <div class="grid grid--2">
+                        <div>
+                            <h3>Objectives</h3>
+                            <ul>
+                                <li>See how current affects magnetic field strength</li>
+                                <li>Observe the effect of coil turns</li>
+                                <li>Understand the relationship between B-field and motor speed</li>
+                            </ul>
+
+                            <h4 class="mt-lg">Controls</h4>
+                            <div class="form-group">
+                                <label class="form-label">Current (A)</label>
+                                <input type="range" class="range-slider" min="0.1" max="2" step="0.1" value="1"
+                                    id="lab2-current">
+                                <span id="lab2-current-display">1.0 A</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Coil Turns</label>
+                                <input type="range" class="range-slider" min="10" max="200" step="10" value="50"
+                                    id="lab2-turns">
+                                <span id="lab2-turns-display">50 turns</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4>B-Field Visualization</h4>
+                            <canvas id="lab2-canvas" width="300" height="200"
+                                style="width:100%; background:#071733; border-radius:8px;"></canvas>
+
+                            <div class="results-panel mt-md">
+                                <div class="result-item">
+                                    <span>Magnetic Field:</span>
+                                    <strong id="lab2-bfield">3.14 mT</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-lg">
+                        <h4>Learning Outcomes</h4>
+                        <ul>
+                            <li>B-field is proportional to current (B ∝ I)</li>
+                            <li>More turns = stronger field (B ∝ N)</li>
+                            <li>These relationships explain motor behavior</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experiment Ideas -->
+            <section class="section content-container">
+                <h2>🔬 Try These Experiments</h2>
+
+                <div class="grid grid--2">
+                    <div class="card">
+                        <h4>Experiment A: Efficiency Challenge</h4>
+                        <p>Using the battery calculator, find the combination of battery configuration and motor
+                            resistance that gives the best efficiency (most power to motor, least power lost to heat).
+                        </p>
+                        <a href="chemistry.html" class="btn btn--sm btn--ghost mt-md">Start Experiment</a>
+                    </div>
+
+                    <div class="card">
+                        <h4>Experiment B: Runtime Prediction</h4>
+                        <p>Calculate the expected runtime for different current draws. Then compare theoretical vs.
+                            typical real-world values.</p>
+                        <a href="chemistry.html" class="btn btn--sm btn--ghost mt-md">Start Experiment</a>
+                    </div>
+
+                    <div class="card">
+                        <h4>Experiment C: Series vs. Parallel</h4>
+                        <p>Compare a 4×AA series pack vs. a 2S2P (2 series, 2 parallel) configuration. How do voltage,
+                            capacity, and internal resistance differ?</p>
+                        <a href="chemistry.html" class="btn btn--sm btn--ghost mt-md">Start Experiment</a>
+                    </div>
+
+                    <div class="card">
+                        <h4>Experiment D: Material Effects</h4>
+                        <p>In the motor simulator, compare B-field strength with air core vs. ferrite core. How much
+                            does it increase?</p>
+                        <a href="physics.html" class="btn btn--sm btn--ghost mt-md">Start Experiment</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section text-center">
+                <a href="glossary.html" class="btn btn--primary">View Glossary</a>
+                <a href="about.html" class="btn btn--ghost">See Rubric Mapping</a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>ChargedUP: Behind The Scenes of an RC Car • December 20th</p>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // Lab 1: Voltage sag simulation
+        document.addEventListener('DOMContentLoaded', () => {
+            const lab1Current = document.getElementById('lab1-current');
+            const lab1Resistance = document.getElementById('lab1-resistance');
+
+            function updateLab1() {
+                const I = parseFloat(lab1Current?.value || 0.5);
+                const R = parseFloat(lab1Resistance?.value || 1.2);
+                const Vopen = 6.0;
+                const Vloaded = Vopen - (I * R);
+                const Ploss = I * I * R;
+
+                document.getElementById('lab1-current-display').textContent = I.toFixed(1) + ' A';
+                document.getElementById('lab1-resistance-display').textContent = R.toFixed(1) + ' Ω';
+                document.getElementById('lab1-loaded-v').textContent = Math.max(0, Vloaded).toFixed(2) + ' V';
+                document.getElementById('lab1-power-loss').textContent = Ploss.toFixed(2) + ' W';
+            }
+
+            lab1Current?.addEventListener('input', updateLab1);
+            lab1Resistance?.addEventListener('input', updateLab1);
+            updateLab1();
+
+            // Lab 2: B-field simulation
+            const lab2Current = document.getElementById('lab2-current');
+            const lab2Turns = document.getElementById('lab2-turns');
+            const lab2Canvas = document.getElementById('lab2-canvas');
+
+            function updateLab2() {
+                const I = parseFloat(lab2Current?.value || 1);
+                const N = parseInt(lab2Turns?.value || 50);
+                const L = 0.02; // 2cm
+                const mu0 = 4 * Math.PI * 1e-7;
+                const B = mu0 * N * I / L;
+                const BmT = B * 1000;
+
+                document.getElementById('lab2-current-display').textContent = I.toFixed(1) + ' A';
+                document.getElementById('lab2-turns-display').textContent = N + ' turns';
+                document.getElementById('lab2-bfield').textContent = BmT.toFixed(2) + ' mT';
+
+                // Draw simple visualization
+                if (lab2Canvas) {
+                    const ctx = lab2Canvas.getContext('2d');
+                    const w = lab2Canvas.width;
+                    const h = lab2Canvas.height;
+
+                    ctx.fillStyle = '#071733';
+                    ctx.fillRect(0, 0, w, h);
+
+                    // Draw coil
+                    ctx.strokeStyle = '#3EF1C6';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(w * 0.3, h * 0.3, w * 0.4, h * 0.4);
+
+                    // Draw field lines (intensity based on B)
+                    const intensity = Math.min(BmT / 10, 1);
+                    ctx.strokeStyle = `rgba(0, 209, 255, ${0.3 + intensity * 0.7})`;
+                    ctx.lineWidth = 2 + intensity * 2;
+
+                    for (let i = 0; i < 3; i++) {
+                        const y = h * 0.4 + i * h * 0.1;
+                        ctx.beginPath();
+                        ctx.moveTo(w * 0.2, y);
+                        ctx.lineTo(w * 0.8, y);
+                        ctx.stroke();
+                    }
+
+                    ctx.fillStyle = '#F8FAFC';
+                    ctx.font = '12px Inter';
+                    ctx.fillText(`B = ${BmT.toFixed(2)} mT`, w * 0.35, h * 0.9);
+                }
+            }
+
+            lab2Current?.addEventListener('input', updateLab2);
+            lab2Turns?.addEventListener('input', updateLab2);
+            updateLab2();
+        });
+    </script>
+</body>
+
+</html>

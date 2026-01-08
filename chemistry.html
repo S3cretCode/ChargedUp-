@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Chemistry | ChargedUP</title>
+    <meta name="description"
+        content="Learn how AA alkaline batteries work through electrochemistry. Calculate charge, energy, and capacity using stoichiometry or commercial specs.">
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <img src="assets/logo.svg" alt="" width="40" height="40">
+                <span>ChargedUP</span>
+            </a>
+
+            <nav class="nav">
+                <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="nav-toggle__bar"></span>
+                    <span class="nav-toggle__bar"></span>
+                    <span class="nav-toggle__bar"></span>
+                </button>
+
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Home</a></li>
+                    <li><a href="chemistry.html" class="nav__link nav__link--active">Chemistry</a></li>
+                    <li><a href="physics.html" class="nav__link">Physics</a></li>
+                    <li><a href="integrated.html" class="nav__link">Integrated</a></li>
+                    <li><a href="simulations.html" class="nav__link">Simulations</a></li>
+                    <li><a href="glossary.html" class="nav__link">Glossary</a></li>
+                    <li><a href="sources.html" class="nav__link">Sources</a></li>
+                    <li><a href="about.html" class="nav__link">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="page-wrapper">
+        <div class="container">
+            <!-- Page Header -->
+            <section class="section">
+                <h1>🔋 Battery Chemistry</h1>
+                <p class="text-lg">From Ions to Electrons: Understanding AA Alkaline Batteries</p>
+            </section>
+
+            <!-- Introduction -->
+            <section class="section content-container">
+                <h2>How Batteries Work</h2>
+                <p>
+                    When you insert AA batteries into your RC car controller or the car itself, you're using
+                    <a href="glossary.html#electrochemistry">electrochemistry</a> to convert chemical energy into
+                    electrical energy. Inside an alkaline battery, a <a href="glossary.html#redox">redox reaction</a>
+                    occurs between zinc metal and manganese dioxide.
+                </p>
+
+                <div class="card mb-lg">
+                    <h3>The Alkaline Cell Reaction</h3>
+                    <p><strong>Oxidation (Anode - Negative Terminal):</strong></p>
+                    <pre><code>Zn → Zn²⁺ + 2e⁻</code></pre>
+                    <p>Zinc metal loses electrons, releasing them into the external circuit.</p>
+
+                    <p><strong>Reduction (Cathode - Positive Terminal):</strong></p>
+                    <pre><code>2MnO₂ + H₂O + 2e⁻ → Mn₂O₃ + 2OH⁻</code></pre>
+                    <p>Manganese dioxide accepts the electrons and is reduced.</p>
+
+                    <p><strong>Overall Simplified Reaction:</strong></p>
+                    <pre><code class="text-cyan">Zn + 2MnO₂ → ZnO + Mn₂O₃</code></pre>
+                    <p class="text-muted text-sm">Note: This is simplified for Grade 11. See Technical Note below for
+                        details.</p>
+                </div>
+
+                <!-- Technical Note -->
+                <details class="show-work mb-lg">
+                    <summary class="show-work__header">
+                        <span class="show-work__toggle">📚 Technical Note: Reaction Complexity ▼</span>
+                    </summary>
+                    <div class="show-work__content">
+                        <p>
+                            The actual alkaline cell chemistry is more complex. The cathode reaction can proceed
+                            through multiple steps, and the products depend on discharge rate and depth. The
+                            simplified equation above represents the net effect suitable for Grade 11 stoichiometry
+                            (Linden & Reddy, 2010).
+                        </p>
+                        <p>
+                            In reality, the electrolyte is concentrated potassium hydroxide (KOH), and intermediate
+                            compounds form during discharge. For our calculations, the simplified reaction with
+                            2 electrons per zinc atom is a reasonable approximation.
+                        </p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Battery Animation -->
+            <section class="section">
+                <h2>⚡ Electron Flow Visualization</h2>
+                <div class="card">
+                    <div
+                        style="position: relative; height: 120px; background: #071733; border-radius: 8px; overflow: hidden;">
+                        <canvas id="electron-flow-canvas" style="width: 100%; height: 100%;"></canvas>
+                        <div
+                            style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); text-align: center;">
+                            <span style="font-size: 2rem;">🔋</span>
+                            <div class="text-sm">Anode (−)</div>
+                        </div>
+                        <div
+                            style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); text-align: center;">
+                            <span style="font-size: 2rem;">⚡</span>
+                            <div class="text-sm">Motor</div>
+                        </div>
+                    </div>
+                    <p class="text-muted text-sm mt-md">Electrons flow from the negative terminal (anode) through the
+                        external circuit to power the motor, then return to the positive terminal (cathode).</p>
+                </div>
+            </section>
+
+            <!-- Calculator Section -->
+            <section class="section" id="battery-calculator">
+                <h2>🧮 Battery Calculator</h2>
+
+                <div class="calculator-panel">
+                    <div class="calculator-panel__header">
+                        <h3 class="calculator-panel__title">AA Battery Energy Calculator</h3>
+                        <div class="flex gap-sm flex--wrap">
+                            <button class="btn btn--sm btn--ghost preset-btn"
+                                data-battery-preset="single-aa-alkaline">Single AA</button>
+                            <button class="btn btn--sm btn--ghost preset-btn" data-battery-preset="4aa-alkaline">4×AA
+                                Pack</button>
+                            <button class="btn btn--sm btn--ghost preset-btn" data-battery-preset="4aa-nimh">4×AA
+                                NiMH</button>
+                            <button class="btn btn--sm btn--ghost preset-btn"
+                                data-battery-preset="stoichiometry-example">Stoichiometry</button>
+                        </div>
+                    </div>
+
+                    <div class="calculator-panel__body">
+                        <!-- Mode Selection -->
+                        <div class="form-group">
+                            <label class="form-label">Calculation Mode</label>
+                            <select id="input-mode" class="form-select">
+                                <option value="commercial">Commercial Capacity (mAh)</option>
+                                <option value="stoichiometry">Stoichiometry (mass input)</option>
+                            </select>
+                        </div>
+
+                        <!-- Commercial Capacity Inputs -->
+                        <div id="commercial-inputs">
+                            <div class="input-grid">
+                                <div class="form-group">
+                                    <label class="form-label form-label--with-tooltip">
+                                        Cell Capacity (mAh)
+                                        <span class="tooltip-trigger"
+                                            data-tooltip="Typical AA alkaline: 2000-2800 mAh">?</span>
+                                    </label>
+                                    <input type="number" id="input-capacity" class="form-input form-input--number"
+                                        value="2000" min="0" step="100">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Cell Voltage (V)</label>
+                                    <input type="number" id="input-voltage" class="form-input form-input--number"
+                                        value="1.5" min="0" step="0.1">
+                                </div>
+                            </div>
+
+                            <div class="input-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Cells in Series</label>
+                                    <input type="number" id="input-series" class="form-input form-input--number"
+                                        value="1" min="1" max="12">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Cells in Parallel</label>
+                                    <input type="number" id="input-parallel" class="form-input form-input--number"
+                                        value="1" min="1" max="12">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stoichiometry Inputs -->
+                        <div id="stoich-inputs" style="display: none;">
+                            <div class="input-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Mass of Zinc (g)</label>
+                                    <input type="number" id="input-zn-mass" class="form-input form-input--number"
+                                        value="1.0" min="0" step="0.1">
+                                    <span class="text-muted text-sm">M = 65.38 g/mol</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Mass of MnO₂ (g)</label>
+                                    <input type="number" id="input-mno2-mass" class="form-input form-input--number"
+                                        value="2.0" min="0" step="0.1">
+                                    <span class="text-muted text-sm">M = 86.936 g/mol</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Internal Resistance -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                Internal Resistance: <span id="display-internal-r">0.3 Ω</span>
+                            </label>
+                            <input type="range" id="input-internal-r" class="range-slider" min="0.05" max="2"
+                                step="0.05" value="0.3">
+                            <span class="text-muted text-sm">Affects loaded voltage when current flows</span>
+                        </div>
+
+                        <!-- Motor Current -->
+                        <div class="form-group">
+                            <label class="form-label">Motor Current Draw (A) - for runtime estimate</label>
+                            <input type="number" id="input-motor-current" class="form-input form-input--number"
+                                value="0.5" min="0" step="0.1">
+                        </div>
+
+                        <!-- Results -->
+                        <div class="results-panel">
+                            <h4 class="mb-md">Results</h4>
+                            <div class="grid grid--2">
+                                <div class="result-item">
+                                    <span>Pack Voltage:</span>
+                                    <strong id="result-pack-voltage">1.50 V</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Loaded Voltage:</span>
+                                    <strong id="result-loaded-voltage">— V</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Total Charge (Q):</span>
+                                    <strong id="result-charge">7200.00 C</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Capacity:</span>
+                                    <strong id="result-capacity">2000 mAh</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Energy:</span>
+                                    <strong id="result-energy">10800.00 J</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Energy (Wh):</span>
+                                    <strong id="result-energy-wh">3.00 Wh</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Est. Runtime:</span>
+                                    <strong id="result-runtime">— min</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Limiting Reagent:</span>
+                                    <strong id="result-limiting">—</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-panel__footer">
+                        <button id="btn-use-in-physics" class="btn btn--primary">
+                            ⚡ Use in Motor Simulator →
+                        </button>
+                        <div class="flex gap-sm">
+                            <button id="btn-chemistry-export" class="btn btn--ghost btn--sm">Export JSON</button>
+                            <button id="btn-chemistry-share" class="btn btn--ghost btn--sm">Share Link</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show Work Section -->
+                <details class="show-work mt-lg">
+                    <summary class="show-work__header">
+                        <span class="show-work__toggle">📝 Show Step-by-Step Work ▼</span>
+                    </summary>
+                    <div class="show-work__content" id="chemistry-work-steps">
+                        <p class="text-muted">Select "Stoichiometry" mode and adjust inputs to see step-by-step
+                            calculations.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Key Formulas -->
+            <section class="section content-container">
+                <h2>📐 Key Formulas</h2>
+
+                <div class="grid grid--2">
+                    <div class="card">
+                        <h4>Moles from Mass</h4>
+                        <pre><code>n = m / M</code></pre>
+                        <p class="text-sm text-muted">n = moles, m = mass (g), M = molar mass (g/mol)</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>Charge from Moles</h4>
+                        <pre><code>Q = n × F</code></pre>
+                        <p class="text-sm text-muted">Q = charge (C), n = moles of electrons, F = 96,485 C/mol</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>Energy from Charge</h4>
+                        <pre><code>E = V × Q</code></pre>
+                        <p class="text-sm text-muted">E = energy (J), V = voltage (V), Q = charge (C)</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>Capacity Conversion</h4>
+                        <pre><code>Q (C) = mAh × 3.6</code></pre>
+                        <p class="text-sm text-muted">1 mAh = 0.001 Ah = 3.6 C</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NiMH Technical Note -->
+            <section class="section content-container">
+                <details class="show-work">
+                    <summary class="show-work__header">
+                        <span class="show-work__toggle">🔋 Technical Note: NiMH Batteries ▼</span>
+                    </summary>
+                    <div class="show-work__content">
+                        <h4>Nickel-Metal Hydride (NiMH) Chemistry</h4>
+                        <p>
+                            NiMH batteries have a different chemistry than alkaline cells. The anode uses a
+                            hydrogen-absorbing metal alloy (MH), and the cathode uses nickel oxyhydroxide (NiOOH).
+                        </p>
+                        <p><strong>Simplified Reactions:</strong></p>
+                        <pre><code>Anode: MH + OH⁻ → M + H₂O + e⁻
+Cathode: NiOOH + H₂O + e⁻ → Ni(OH)₂ + OH⁻</code></pre>
+                        <p>
+                            Key differences from alkaline:
+                        </p>
+                        <ul>
+                            <li>Lower nominal voltage: 1.2 V (vs 1.5 V for alkaline)</li>
+                            <li>Rechargeable (typically 500-1000 cycles)</li>
+                            <li>Lower internal resistance</li>
+                            <li>Flatter discharge curve (voltage stays more constant)</li>
+                        </ul>
+                        <p class="text-muted text-sm">
+                            For Grade 11, focus on the energy and capacity calculations. The detailed electrochemistry
+                            is covered in advanced chemistry courses.
+                        </p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Worked Examples -->
+            <section class="section content-container">
+                <h2>📖 Worked Examples</h2>
+
+                <div class="card worked-example mb-lg">
+                    <h3>Example 1: Single AA Battery Energy</h3>
+                    <p><strong>Problem:</strong> A typical AA alkaline battery has a capacity of 2000 mAh at 1.5 V.
+                        Calculate the total energy in Joules and Watt-hours.</p>
+
+                    <details class="show-work">
+                        <summary class="show-work__header">
+                            <span class="show-work__toggle">Show Solution ▼</span>
+                        </summary>
+                        <div class="show-work__content">
+                            <p><strong>Step 1:</strong> Convert capacity to Coulombs</p>
+                            <pre><code>Q = 2000 mAh × 3.6 = 7200 C</code></pre>
+
+                            <p><strong>Step 2:</strong> Calculate energy in Joules</p>
+                            <pre><code>E = V × Q = 1.5 V × 7200 C = 10,800 J</code></pre>
+
+                            <p><strong>Step 3:</strong> Convert to Watt-hours</p>
+                            <pre><code>E = 10,800 J ÷ 3600 = 3.0 Wh</code></pre>
+
+                            <p><strong>Answer:</strong> 10,800 J or 3.0 Wh</p>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="card worked-example mb-lg">
+                    <h3>Example 2: 4×AA Pack for RC Car</h3>
+                    <p><strong>Problem:</strong> An RC car uses 4 AA batteries in series. If each cell is 1.5 V with
+                        2000 mAh, what is the pack voltage and energy available? If the motor draws 0.5 A, estimate the
+                        runtime.</p>
+
+                    <details class="show-work">
+                        <summary class="show-work__header">
+                            <span class="show-work__toggle">Show Solution ▼</span>
+                        </summary>
+                        <div class="show-work__content">
+                            <p><strong>Step 1:</strong> Pack voltage (series adds voltage)</p>
+                            <pre><code>V_pack = 4 × 1.5 V = 6.0 V</code></pre>
+
+                            <p><strong>Step 2:</strong> Pack capacity (series keeps same capacity)</p>
+                            <pre><code>Capacity = 2000 mAh (unchanged in series)</code></pre>
+
+                            <p><strong>Step 3:</strong> Total energy</p>
+                            <pre><code>E = V × Q = 6.0 V × 7200 C = 43,200 J = 12.0 Wh</code></pre>
+
+                            <p><strong>Step 4:</strong> Runtime estimate</p>
+                            <pre><code>Runtime = 2000 mAh ÷ 500 mA = 4.0 hours</code></pre>
+
+                            <p><strong>Answer:</strong> 6.0 V pack, 12.0 Wh, approximately 4 hours runtime at 0.5 A
+                                draw.</p>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="card worked-example">
+                    <h3>Example 3: Stoichiometry Calculation</h3>
+                    <p><strong>Problem:</strong> Calculate the theoretical charge from a reaction of 1.0 g Zn with 2.0 g
+                        MnO₂.</p>
+
+                    <details class="show-work">
+                        <summary class="show-work__header">
+                            <span class="show-work__toggle">Show Solution ▼</span>
+                        </summary>
+                        <div class="show-work__content">
+                            <p><strong>Step 1:</strong> Calculate moles</p>
+                            <pre><code>n(Zn) = 1.0 g ÷ 65.38 g/mol = 0.01530 mol
+n(MnO₂) = 2.0 g ÷ 86.936 g/mol = 0.02301 mol</code></pre>
+
+                            <p><strong>Step 2:</strong> Find limiting reagent (ratio 1:2)</p>
+                            <pre><code>Zn needed for all MnO₂: 0.02301 ÷ 2 = 0.01150 mol
+Available Zn: 0.01530 mol
+Since 0.01530 > 0.01150, MnO₂ is limiting</code></pre>
+
+                            <p><strong>Step 3:</strong> Calculate electrons (2 per reaction)</p>
+                            <pre><code>n(e⁻) = 0.01150 × 2 = 0.02301 mol</code></pre>
+
+                            <p><strong>Step 4:</strong> Calculate charge</p>
+                            <pre><code>Q = n × F = 0.02301 × 96485 = 2220 C</code></pre>
+
+                            <p><strong>Answer:</strong> MnO₂ is limiting; theoretical charge = 2220 C</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <section class="section text-center">
+                <a href="physics.html" class="btn btn--primary btn--lg">
+                    Continue to Motor Physics →
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>ChargedUP: Behind The Scenes of an RC Car • December 20th</p>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/chemistry.js"></script>
+</body>
+
+</html>

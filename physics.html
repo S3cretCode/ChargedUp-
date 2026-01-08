@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motor Physics | ChargedUP</title>
+    <meta name="description"
+        content="Explore magnetic fields and DC motor operation. See how current creates magnetic fields that power your RC car motor.">
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <div class="header__inner">
+            <a href="index.html" class="header__logo">
+                <img src="assets/logo.svg" alt="" width="40" height="40">
+                <span>ChargedUP</span>
+            </a>
+            <nav class="nav">
+                <button class="nav-toggle" aria-label="Toggle menu"><span class="nav-toggle__bar"></span><span
+                        class="nav-toggle__bar"></span><span class="nav-toggle__bar"></span></button>
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Home</a></li>
+                    <li><a href="chemistry.html" class="nav__link">Chemistry</a></li>
+                    <li><a href="physics.html" class="nav__link nav__link--active">Physics</a></li>
+                    <li><a href="integrated.html" class="nav__link">Integrated</a></li>
+                    <li><a href="simulations.html" class="nav__link">Simulations</a></li>
+                    <li><a href="glossary.html" class="nav__link">Glossary</a></li>
+                    <li><a href="sources.html" class="nav__link">Sources</a></li>
+                    <li><a href="about.html" class="nav__link">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="page-wrapper">
+        <div class="container">
+            <section class="section">
+                <h1>⚡ Motor Physics</h1>
+                <p class="text-lg">Magnetic Fields & DC Motor Basics: How Current Powers Motion</p>
+            </section>
+
+            <!-- Introduction -->
+            <section class="section content-container">
+                <h2>Currents Create Magnetic Fields</h2>
+                <p>When electric current flows through a wire, it creates a <a
+                        href="glossary.html#magnetic-field">magnetic field</a> around the wire. This fundamental
+                    principle, discovered by Hans Christian Ørsted in 1820, is the basis for all electric motors.</p>
+
+                <div class="card mb-lg">
+                    <h3>The Right-Hand Rule</h3>
+                    <p>To predict the direction of the magnetic field around a current-carrying wire:</p>
+                    <ol>
+                        <li>Point your <strong>thumb</strong> in the direction of current flow (conventional current, +
+                            to −)</li>
+                        <li>Your <strong>fingers curl</strong> in the direction of the magnetic field lines</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Right-Hand Rule Demo -->
+            <section class="section">
+                <h2>🖐️ Right-Hand Rule Demonstration</h2>
+                <div class="card">
+                    <div class="flex gap-md mb-md">
+                        <button class="btn btn--sm btn--primary"
+                            onclick="window.ChargedUP?.RightHandRuleDemonstrator && rightHandRuleDemo?.setMode('wire')">Straight
+                            Wire</button>
+                        <button class="btn btn--sm btn--ghost"
+                            onclick="window.ChargedUP?.RightHandRuleDemonstrator && rightHandRuleDemo?.setMode('loop')">Current
+                            Loop</button>
+                    </div>
+                    <canvas id="rhr-canvas" width="600" height="250"
+                        style="width:100%; max-height:250px; background:#071733; border-radius:8px;"></canvas>
+                </div>
+            </section>
+
+            <!-- B-Field Formulas -->
+            <section class="section content-container">
+                <h2>📐 Magnetic Field Formulas</h2>
+
+                <div class="grid grid--2">
+                    <div class="card">
+                        <h4>Straight Wire</h4>
+                        <pre><code>B = μ₀ × I / (2πr)</code></pre>
+                        <p class="text-sm text-muted">B = field strength (T), I = current (A), r = distance from wire
+                            (m)</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>Solenoid (Coil)</h4>
+                        <pre><code>B = μ₀ × μᵣ × N × I / L</code></pre>
+                        <p class="text-sm text-muted">N = turns, L = length (m), μᵣ = relative permeability</p>
+                    </div>
+                </div>
+
+                <div class="card mt-lg">
+                    <h4>Constants</h4>
+                    <p><strong>μ₀</strong> (permeability of free space) = 4π × 10⁻⁷ H/m ≈ 1.257 × 10⁻⁶ H/m</p>
+                    <p><strong>μᵣ</strong> (relative permeability): Air ≈ 1, Ferrite ≈ 2000, Iron ≈ 4000</p>
+                </div>
+            </section>
+
+            <!-- Motor Simulator -->
+            <section class="section" id="motor-simulator">
+                <h2>🔧 Motor & Magnetic Field Simulator</h2>
+
+                <div class="calculator-panel">
+                    <div class="calculator-panel__header">
+                        <h3 class="calculator-panel__title">DC Motor Simulator</h3>
+                        <div class="flex gap-sm flex--wrap">
+                            <button class="btn btn--sm btn--ghost preset-btn" data-motor-preset="small-dc-motor">RC Car
+                                Motor</button>
+                            <button class="btn btn--sm btn--ghost preset-btn" data-motor-preset="hobby-motor">Hobby
+                                Motor</button>
+                            <button class="btn btn--sm btn--ghost preset-btn" data-motor-preset="demo-solenoid">Demo
+                                Coil</button>
+                        </div>
+                    </div>
+
+                    <div class="calculator-panel__body">
+                        <!-- Import from Chemistry -->
+                        <div class="form-group">
+                            <label class="form-check">
+                                <input type="checkbox" id="import-from-battery">
+                                <span>Import voltage/current from Battery Calculator</span>
+                            </label>
+                        </div>
+
+                        <div class="input-grid">
+                            <div class="form-group">
+                                <label class="form-label">Supply Voltage (V)</label>
+                                <input type="number" id="input-supply-voltage" class="form-input form-input--number"
+                                    value="6" min="0" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Current: <span id="display-current">1.0 A</span></label>
+                                <input type="range" id="input-current" class="range-slider" min="0.1" max="3" step="0.1"
+                                    value="1">
+                            </div>
+                        </div>
+
+                        <div class="input-grid">
+                            <div class="form-group">
+                                <label class="form-label">Motor/Coil Resistance (Ω)</label>
+                                <input type="number" id="input-motor-r" class="form-input form-input--number" value="3"
+                                    min="0.1" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Battery Internal R (Ω)</label>
+                                <input type="number" id="input-battery-r" class="form-input form-input--number"
+                                    value="0.3" min="0" step="0.1">
+                            </div>
+                        </div>
+
+                        <div class="input-grid">
+                            <div class="form-group">
+                                <label class="form-label">Coil Turns (N)</label>
+                                <input type="number" id="input-coil-turns" class="form-input form-input--number"
+                                    value="50" min="1" step="10">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Coil Length (cm)</label>
+                                <input type="number" id="input-coil-length" class="form-input form-input--number"
+                                    value="2" min="0.5" step="0.5">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Core Material</label>
+                            <select id="input-material" class="form-select">
+                                <option value="air">Air (μᵣ = 1)</option>
+                                <option value="ferrite">Ferrite (μᵣ ≈ 2000)</option>
+                                <option value="iron">Iron (μᵣ ≈ 4000)</option>
+                            </select>
+                        </div>
+
+                        <!-- Field Visualization -->
+                        <div class="card mb-lg">
+                            <h4>Magnetic Field Visualization</h4>
+                            <canvas id="field-canvas" width="500" height="200"
+                                style="width:100%; max-height:200px; border-radius:8px;"></canvas>
+                        </div>
+
+                        <!-- Motor Speed Gauge -->
+                        <div class="card mb-lg text-center">
+                            <h4>Motor Speed Estimate</h4>
+                            <div class="motor-gauge" style="margin: 20px auto;">
+                                <div class="motor-gauge__scale"></div>
+                                <div class="motor-gauge__dial" id="gauge-dial"></div>
+                                <div class="motor-gauge__value" id="gauge-value">≈ 0 RPM</div>
+                            </div>
+                            <p class="text-muted text-sm" id="gauge-label" style="margin-top: 60px;">⚠️ Approximate
+                                educational estimate only</p>
+                        </div>
+
+                        <!-- Results -->
+                        <div class="results-panel">
+                            <h4 class="mb-md">Results</h4>
+                            <div class="grid grid--2">
+                                <div class="result-item">
+                                    <span>B-Field Strength:</span>
+                                    <strong id="result-b-field">— mT</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Formula Used:</span>
+                                    <span id="result-formula" class="text-cyan">B = μ₀μᵣNI/L</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Steady-State Current:</span>
+                                    <strong id="result-current">— A</strong>
+                                </div>
+                                <div class="result-item">
+                                    <span>Motor Power:</span>
+                                    <strong id="result-power">— W</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-panel__footer">
+                        <a href="integrated.html" class="btn btn--primary">View Full Energy Chain →</a>
+                        <div class="flex gap-sm">
+                            <button id="btn-physics-export" class="btn btn--ghost btn--sm">Export JSON</button>
+                            <button id="btn-physics-share" class="btn btn--ghost btn--sm">Share Link</button>
+                        </div>
+                    </div>
+                </div>
+
+                <details class="show-work mt-lg">
+                    <summary class="show-work__header"><span class="show-work__toggle">📝 Show Step-by-Step Work
+                            ▼</span></summary>
+                    <div class="show-work__content" id="physics-work-steps">
+                        <p class="text-muted">Adjust inputs above to see calculations.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- DC Motor Conceptual -->
+            <section class="section content-container">
+                <h2>🔄 How DC Motors Work</h2>
+
+                <div class="card mb-lg">
+                    <h3>The Basic Principle</h3>
+                    <p>A DC motor converts electrical energy into rotational mechanical energy through the interaction
+                        of magnetic fields:</p>
+                    <ol>
+                        <li><strong>Current flows</strong> through the motor's coil (armature)</li>
+                        <li>The current creates a <strong>magnetic field</strong> around the coil</li>
+                        <li>This field <strong>interacts with permanent magnets</strong> in the motor housing</li>
+                        <li>The interaction creates a <strong>force</strong> that causes rotation</li>
+                        <li>A <strong>commutator</strong> reverses current direction each half-turn to maintain rotation
+                        </li>
+                    </ol>
+                    <p class="text-muted text-sm">Note: Detailed torque calculations are beyond Grade 11 scope. The
+                        motor speed is approximately proportional to voltage and inversely related to load.</p>
+                </div>
+
+                <details class="show-work">
+                    <summary class="show-work__header"><span class="show-work__toggle">📚 Technical Note: Back-EMF
+                            ▼</span></summary>
+                    <div class="show-work__content">
+                        <h4>Back-EMF (Counter Electromotive Force)</h4>
+                        <p>As the motor spins, it acts like a generator and produces a voltage that <em>opposes</em> the
+                            supply voltage. This is called back-EMF.</p>
+                        <ul>
+                            <li><strong>At startup:</strong> No rotation → no back-EMF → high current (limited by
+                                resistance)</li>
+                            <li><strong>At speed:</strong> High rotation → high back-EMF → reduced current</li>
+                            <li><strong>Under load:</strong> Motor slows → less back-EMF → more current to overcome load
+                            </li>
+                        </ul>
+                        <p>This explains why motors draw more current when starting or under heavy load.</p>
+                        <pre><code>V_supply = I × R + V_back-EMF</code></pre>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Worked Examples -->
+            <section class="section content-container">
+                <h2>📖 Worked Examples</h2>
+
+                <div class="card worked-example mb-lg">
+                    <h3>Example 1: Solenoid B-Field</h3>
+                    <p><strong>Problem:</strong> Calculate the magnetic field at the center of a solenoid with 200
+                        turns, length 5 cm, carrying 2 A, with an air core.</p>
+                    <details class="show-work">
+                        <summary class="show-work__header"><span class="show-work__toggle">Show Solution ▼</span>
+                        </summary>
+                        <div class="show-work__content">
+                            <p><strong>Given:</strong> N = 200, L = 0.05 m, I = 2 A, μᵣ = 1</p>
+                            <pre><code>B = μ₀ × μᵣ × N × I / L
+B = (4π × 10⁻⁷) × 1 × 200 × 2 / 0.05
+B = 1.005 × 10⁻² T = 10.05 mT</code></pre>
+                            <p><strong>Answer:</strong> B ≈ 10 mT</p>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="card worked-example mb-lg">
+                    <h3>Example 2: Motor Current from Battery Pack</h3>
+                    <p><strong>Problem:</strong> A 4×AA pack (6V) powers a motor with 3Ω resistance. The batteries have
+                        1.2Ω total internal resistance. What current flows?</p>
+                    <details class="show-work">
+                        <summary class="show-work__header"><span class="show-work__toggle">Show Solution ▼</span>
+                        </summary>
+                        <div class="show-work__content">
+                            <pre><code>I = V / (R_motor + R_internal)
+I = 6 V / (3 Ω + 1.2 Ω)
+I = 6 / 4.2 = 1.43 A</code></pre>
+                            <p><strong>Answer:</strong> I ≈ 1.4 A</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section text-center">
+                <a href="integrated.html" class="btn btn--primary btn--lg">See Complete Energy Chain →</a>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>ChargedUP: Behind The Scenes of an RC Car • December 20th</p>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/physics.js"></script>
+</body>
+
+</html>
